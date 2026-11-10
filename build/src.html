@@ -1,0 +1,825 @@
+<title>Cameron Pettit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Sydney-based web design, business systems, and operations analytics consultant.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: white space and one playful field of shapes that the visitor can put in order. Everything else stays quiet. */
+/* Single light look by choice: no dark variant. */
+:root {
+  color-scheme: light;
+  --bg: #FFFFFF;
+  --soft: #F5F6FA;        /* the ground the shapes sit on */
+  --ink: #101828;
+  --muted: #5B6472;
+  --line: #E4E7EC;
+  --navy: #1A3A5C;        /* existing brand navy */
+  --blue: #6E8FF5;        /* focus rings and small markers */
+  --tint-blue: #E4ECFF;   /* pastel card grounds */
+  --tint-peach: #FFE8E1;
+  --tint-lilac: #ECE6FD;
+  --tint-mint: #E0F3EA;
+
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 1.0625rem; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3, h4 { margin: 0; font-family: var(--display); font-weight: 600; text-wrap: balance; letter-spacing: -.02em; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+button { font: inherit; color: inherit; }
+
+.wrap {
+  max-width: 1120px; margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.label { font-size: .92rem; font-weight: 500; color: var(--muted); }
+.band { padding-block: clamp(64px, 10vw, 120px); scroll-margin-top: 64px; }
+.band-head { display: grid; gap: 12px; margin-bottom: clamp(32px, 5vw, 56px); max-width: 44rem; }
+.band-head h2, .about h2 { font-size: clamp(1.8rem, 4.2vw, 2.9rem); line-height: 1.08; }
+.band-head p { color: var(--muted); max-width: 38rem; }
+
+/* Header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--bg); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+.mark { font-family: var(--display); font-weight: 600; font-size: 1.12rem; letter-spacing: -.01em; text-decoration: none; }
+.nav { display: flex; align-items: center; gap: 26px; }
+.nav a.link { font-size: .96rem; font-weight: 500; text-decoration: none; color: var(--muted); }
+.nav a.link:hover { color: var(--ink); }
+@media (max-width: 760px) { .nav a.link { display: none; } }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--body); font-weight: 600; font-size: .98rem; text-decoration: none;
+  padding: 13px 22px; border-radius: 999px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer;
+  transition: transform .18s ease, background .18s ease, color .18s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-ink { background: var(--ink); color: var(--bg); }
+.btn-sm { padding: 9px 16px; font-size: .9rem; }
+
+/* Hero */
+.hero { position: relative; padding-block: clamp(24px, 5vw, 56px) 0; overflow: hidden; }
+.hero-copy { display: grid; gap: 22px; max-width: 34rem; min-width: 0; }
+.hero h1 { font-size: clamp(2.6rem, 6.6vw, 4.6rem); line-height: .96; letter-spacing: -.04em; }
+.lede { font-size: 1.16rem; color: var(--muted); max-width: 31rem; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+#field { display: block; width: 100%; height: 440px; cursor: pointer; touch-action: pan-y; }
+.hero-tools { display: flex; justify-content: flex-end; align-items: center; gap: 14px; padding-block: 0 8px; color: var(--muted); font-size: .94rem; }
+@media (min-width: 980px) {
+  .hero { min-height: 660px; display: grid; align-content: center; padding-block: 56px; }
+  #field { position: absolute; inset: 0; height: 100%; }
+  .hero .wrap { position: relative; z-index: 1; pointer-events: none; width: 100%; }
+  .hero .wrap a, .hero .wrap button { pointer-events: auto; }
+  .hero .hero-tools { position: absolute; left: 0; right: 0; bottom: 18px; }
+}
+.hero-tools span { background: var(--bg); padding: 5px 12px; border-radius: 999px; }
+.hero-tools .btn { background: var(--bg); }
+#strip { display: block; width: 100%; height: 200px; cursor: pointer; touch-action: pan-y; }
+
+/* Film */
+.film { padding-block-start: 0; }
+#film-c { cursor: pointer; touch-action: pan-y; display: block; width: 100%; max-width: 100%; aspect-ratio: 800 / 440; background: var(--soft); border-radius: 28px; }
+.film-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 14px; }
+.film-tools span { color: var(--muted); font-size: .94rem; margin-left: 4px; }
+
+/* About */
+.about-grid { display: grid; gap: clamp(24px, 5vw, 72px); }
+@media (min-width: 900px) { .about-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); align-items: start; } }
+.about-text { display: grid; gap: 18px; max-width: 36rem; color: var(--muted); }
+.about-text p:first-child { color: var(--ink); font-size: 1.16rem; }
+.facts { margin: 0; display: grid; }
+.facts div { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; font-weight: 500; text-align: right; }
+
+/* Services */
+.soft { background: var(--soft); }
+.svc { display: grid; gap: 20px; }
+@media (min-width: 760px) { .svc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.svc-col { background: var(--tint-blue); border-radius: 24px; padding: clamp(22px, 3vw, 32px); display: grid; gap: 22px; align-content: start; min-width: 0; }
+.svc-col:nth-child(2) { background: var(--tint-peach); }
+.svc-col:nth-child(3) { background: var(--tint-lilac); }
+.svc-col:nth-child(4) { background: var(--tint-mint); }
+.svc-col h3 { font-size: clamp(1.9rem, 3.4vw, 2.4rem); }
+.svc-item { display: grid; gap: 6px; }
+.svc-item + .svc-item { padding-top: 20px; border-top: 1px solid rgba(16, 24, 40, .1); }
+.svc-item h4 { font-family: var(--body); font-weight: 600; font-size: 1.05rem; letter-spacing: 0; }
+.svc-item p { color: #465060; font-size: .98rem; }
+
+/* Work */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.chipbtn { font-size: .92rem; font-weight: 500; padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg); cursor: pointer; }
+.chipbtn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.ledger { border-top: 1px solid var(--line); }
+.job { border-bottom: 1px solid var(--line); }
+.job summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) 24px; gap: 4px 16px; align-items: center; padding: 20px 0; }
+.job summary::-webkit-details-marker { display: none; }
+@media (min-width: 820px) { .job summary { grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) 24px; } }
+.job-name { font-family: var(--display); font-weight: 600; font-size: clamp(1.15rem, 2.2vw, 1.45rem); letter-spacing: -.02em; line-height: 1.2; min-width: 0; transition: transform .2s ease; }
+.job summary:hover .job-name { transform: translateX(6px); }
+.job-tags { font-size: .92rem; color: var(--muted); min-width: 0; grid-column: 1; }
+@media (min-width: 820px) { .job-tags { grid-column: auto; text-align: right; } }
+.status { display: inline-flex; align-items: center; gap: 7px; font-size: .88rem; font-weight: 500; color: var(--muted); }
+.status i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: block; }
+.status.on i { background: #7FCFA8; }
+.status.built i { background: var(--navy); }
+.plus { width: 24px; height: 24px; position: relative; grid-row: 1; grid-column: 2; justify-self: end; }
+@media (min-width: 820px) { .plus { grid-column: 3; } }
+.plus::before, .plus::after { content: ""; position: absolute; left: 4px; right: 4px; top: 11px; height: 2px; background: var(--ink); transition: transform .25s ease; }
+.plus::after { transform: rotate(90deg); }
+.job[open] .plus::after { transform: rotate(0deg); }
+.job-body { display: grid; gap: 20px; padding: 0 0 26px; }
+@media (min-width: 720px) { .job-body.has-img { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 28px; } }
+.job-body img { width: 100%; max-width: 100%; height: auto; border-radius: 14px; display: block; background: var(--soft); }
+.job-body p { color: var(--muted); max-width: 40rem; }
+.job-body div { display: grid; gap: 12px; align-content: start; justify-items: start; min-width: 0; }
+.visit { font-weight: 600; text-underline-offset: 5px; }
+.nda-note { margin-top: 20px; font-size: .94rem; color: var(--muted); max-width: 44rem; }
+
+/* Contact */
+.contact-grid { display: grid; gap: clamp(32px, 5vw, 72px); }
+@media (min-width: 900px) { .contact-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.contact-grid h2 { font-size: clamp(2.1rem, 5vw, 3.5rem); line-height: 1; letter-spacing: -.035em; }
+.contact-copy { display: grid; gap: 22px; align-content: start; min-width: 0; }
+.contact-copy > p { max-width: 34rem; color: var(--muted); }
+.ways { margin: 0; display: grid; }
+.ways div { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.ways dt { color: var(--muted); font-size: .96rem; }
+.ways dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; user-select: all; }
+.ways a { text-underline-offset: 5px; }
+.copy { font-size: .84rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg); cursor: pointer; }
+form.msg { background: var(--soft); border-radius: 28px; padding: clamp(20px, 3.4vw, 36px); display: grid; gap: 16px; align-content: start; min-width: 0; }
+form.msg h3 { font-size: 1.5rem; }
+form.msg > p { color: var(--muted); font-size: .98rem; }
+.fld { display: grid; gap: 6px; }
+.fld label { font-size: .92rem; font-weight: 500; }
+.fld input, .fld textarea { font: inherit; font-size: 1rem; color: var(--ink); background: var(--bg); border: 1.5px solid transparent; border-radius: 14px; padding: 13px 14px; width: 100%; }
+.fld input:focus, .fld textarea:focus { outline: none; border-color: var(--blue); }
+.fld textarea { min-height: 130px; resize: vertical; }
+form.msg .btn { justify-self: start; }
+.form-status { font-size: .96rem; min-height: 1.5em; }
+.form-status.err { color: #B42318; }
+.form-status.ok { color: var(--navy); font-weight: 500; }
+
+footer .wrap { padding-block: 28px 36px; display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: space-between; font-size: .9rem; color: var(--muted); border-top: 1px solid var(--line); }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+footer a { text-underline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .plus::before, .plus::after, .job-name { transition: none; }
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top">Cameron Pettit</a>
+    <nav class="nav" aria-label="Main">
+      <a class="link" href="#services">Services</a>
+      <a class="link" href="#work">Work</a>
+      <a class="link" href="https://pettitops.com/">PettitPayroll</a>
+      <a class="link" href="#contact">Contact</a>
+      <a class="btn btn-ink btn-sm" href="https://cameronpettit.com/quote-request">Request a quote</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="label">Websites, custom software, systems, analytics and security. Sydney.</p>
+        <h1>Built around how your business actually works.</h1>
+        <p class="lede">I build websites and custom software, design the business systems and processes behind them, deliver the reporting that shows whether they're working, and keep it all secure.</p>
+        <div class="cta-row">
+          <a class="btn btn-ink" href="#contact">Get in touch</a>
+          <a class="btn" href="#work">See past work</a>
+        </div>
+      </div>
+    </div>
+    <canvas id="field" role="img" aria-label="An abstract network of shapes joined by thin lines. Most start out grey. Each tap sends out a ring that finds the shapes it passes, turning them to colour and linking them together."></canvas>
+    <div class="wrap hero-tools">
+      <span id="scan-count">Tap to scan · 5 of 26 found</span>
+      <button class="btn btn-sm" type="button" id="play-next">Rearrange</button>
+    </div>
+  </section>
+
+  <section class="band about" id="about">
+    <div class="wrap about-grid">
+      <h2>A single point of responsibility from first sketch to working system.</h2>
+      <div class="about-text">
+        <p>My background is operational. I understand how businesses run, where processes break down, and what a system needs to do to be useful under real working conditions.</p>
+        <dl class="facts">
+          <div><dt>Scope</dt><dd>Web, software, systems, security</dd></div>
+          <div><dt>Approach</dt><dd>Practical, end to end</dd></div>
+          <div><dt>Engagements</dt><dd>Fixed scope or retainer</dd></div>
+          <div><dt>Location</dt><dd>Sydney or remote</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="band film" id="film">
+    <div class="wrap">
+      <div class="band-head">
+        <p class="label">A short film</p>
+        <h2>Built by hand first.</h2>
+        <p>A small builder puts a website together piece by piece, out in the open. Then the screen takes it.</p>
+      </div>
+      <canvas id="film-c" role="img" aria-label="A looping animation. A small one-eyed creature carries six coloured parts from a pile and throws them into a standing frame to build a web page. A nearby monitor wakes up, pulls the page across in wobbling strips, and shows it on screen. The creature then jumps into the monitor and waves."></canvas>
+      <div class="film-tools">
+        <button class="btn btn-sm" type="button" id="film-play">Pause</button>
+        <button class="btn btn-sm" type="button" id="film-replay">Replay</button>
+        <span>The builder watches your pointer. Click or tap to make it jump.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="services">
+    <div class="wrap">
+      <div class="band-head">
+        <p class="label">Capabilities</p>
+        <h2>What I do</h2>
+      </div>
+      <div class="svc">
+        <div class="svc-col">
+          <h3>Build</h3>
+          <div class="svc-item">
+            <h4>Web design &amp; development</h4>
+            <p>Custom websites and web applications built from scratch. Design, build, and launch handled end to end.</p>
+          </div>
+          <div class="svc-item">
+            <h4>Custom software &amp; integrations</h4>
+            <p>Custom software for operational problems that existing tools don't solve: API integrations, protocol layers, data pipelines, and reporting systems.</p>
+          </div>
+        </div>
+        <div class="svc-col">
+          <h3>Systemise</h3>
+          <div class="svc-item">
+            <h4>Business systems &amp; automation</h4>
+            <p>Internal tools, booking systems, workflow automation, and operational platforms built to replace manual processes.</p>
+          </div>
+          <div class="svc-item">
+            <h4>Process design &amp; systems thinking</h4>
+            <p>Mapping how a business operates, identifying where processes break down, and designing systems to fix them.</p>
+          </div>
+        </div>
+        <div class="svc-col">
+          <h3>Secure</h3>
+          <div class="svc-item">
+            <h4>Cybersecurity</h4>
+            <p>Security reviews for websites, apps and small business networks: attack-surface checks, penetration testing, threat intelligence and monitoring, with fixes explained in plain terms.</p>
+          </div>
+          <div class="svc-item">
+            <h4>IT support &amp; infrastructure</h4>
+            <p>Practical IT support for small and medium businesses: device setup, networks, software, cloud migrations, and ongoing support. No jargon.</p>
+          </div>
+        </div>
+        <div class="svc-col">
+          <h3>Measure</h3>
+          <div class="svc-item">
+            <h4>Operations reporting &amp; analytics</h4>
+            <p>Turning operational data into reporting that's actually used: KPI dashboards, margin and utilisation tracking, and management reporting built around the metrics a business actually runs on. Built from an operator's perspective.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="work">
+    <div class="wrap">
+      <div class="band-head">
+        <p class="label">Selected work</p>
+        <h2>Delivered projects across web, systems and software.</h2>
+      </div>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button class="chipbtn" type="button" data-f="all" aria-pressed="true">All</button>
+        <button class="chipbtn" type="button" data-f="web" aria-pressed="false">Websites</button>
+        <button class="chipbtn" type="button" data-f="sys" aria-pressed="false">Systems &amp; software</button>
+      </div>
+      <div class="ledger" id="ledger"></div>
+      <p class="nda-note">Several engagements are under non-disclosure and cannot be described beyond their category and scope.</p>
+    </div>
+  </section>
+
+  <section class="band" id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-copy">
+        <p class="label">Start a conversation</p>
+        <h2>Good work starts with a clear problem.</h2>
+        <p>Tell me what is not working, what you are trying to build, or where the next bottleneck is. I will come back with a practical view of the scope and the right way to approach it.</p>
+        <dl class="ways">
+          <div><dt>Phone</dt><dd id="c-phone">+61 452 017 693</dd><button class="copy" type="button" data-copy="c-phone">Copy</button></div>
+          <div><dt>Email</dt><dd id="c-email">pettitcameron@gmail.com</dd><button class="copy" type="button" data-copy="c-email">Copy</button></div>
+          <div><dt>WhatsApp</dt><dd><a href="https://wa.me/61452017693">Message on WhatsApp</a></dd><span></span></div>
+          <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/cameronmpettit/">cameronmpettit</a></dd><span></span></div>
+          <div><dt>Instagram</dt><dd><a href="https://instagram.com/cameronpettitweb">@cameronpettitweb</a></dd><span></span></div>
+        </dl>
+      </div>
+      <form class="msg" id="msg-form" novalidate>
+        <h3>Send a message</h3>
+        <p>No brief required. A quick call is usually enough to work out whether there is a fit and what a realistic scope looks like.</p>
+        <div class="fld"><label for="cf-name">Name</label><input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Your name" required></div>
+        <div class="fld"><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" autocomplete="email" placeholder="So I can reply" required></div>
+        <div class="fld"><label for="cf-message">Message</label><textarea id="cf-message" name="message" placeholder="What are you working on, and what do you need built or sorted?" required></textarea></div>
+        <button class="btn btn-ink" type="submit" id="cf-send">Send message</button>
+        <p class="form-status" id="cf-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <canvas id="strip" aria-hidden="true"></canvas>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Cameron Pettit · Sydney, Australia</span>
+    <nav aria-label="Footer">
+      <a href="https://cameronpettit.com/quote-request">Quote request</a>
+      <a href="https://abr.business.gov.au/ABN/View?abn=64608132825">ABN 64 608 132 825</a>
+      <a href="https://cameronpettit.com/webnhanh">WebNhanh</a>
+      <a href="https://cameronpettit.com/privacy-policy">Privacy Policy</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function $(id) { return document.getElementById(id); }
+
+  /* ================= Shape fields ================= */
+  var COLORS = ["#A9C5FF", "#FFB5A3", "#FFE08A", "#B6E3D0", "#D4C5F9", "#A9C5FF", "#FFB5A3", "#D4C5F9"];
+  var TYPES = ["disc", "ring", "half", "quarter", "square", "bar", "arc", "plus", "dots", "stripes", "disc", "half", "ring", "bar"];
+  var pageScroll = 0;
+  window.addEventListener("scroll", function () { pageScroll = window.scrollY || 0; }, { passive: true });
+
+  function pill(c, x, y, w, h) {
+    var r = h / 2;
+    c.beginPath(); c.moveTo(x + r, y); c.lineTo(x + w - r, y); c.arc(x + w - r, y + r, r, -1.5708, 1.5708);
+    c.lineTo(x + r, y + h); c.arc(x + r, y + r, r, 1.5708, 4.7124); c.closePath(); c.fill();
+  }
+  // draws one shape centred on the origin, S pixels across
+  function drawShape(c, type, S, col) {
+    var i, j, lw;
+    c.fillStyle = col; c.strokeStyle = col; c.lineCap = "round";
+    if (type === "disc") { c.beginPath(); c.arc(0, 0, S / 2, 0, 6.2832); c.fill(); }
+    else if (type === "ring") { lw = S * 0.16; c.lineWidth = lw; c.beginPath(); c.arc(0, 0, S / 2 - lw / 2, 0, 6.2832); c.stroke(); }
+    else if (type === "half") { c.beginPath(); c.arc(0, 0, S / 2, 0, 3.1416); c.closePath(); c.fill(); }
+    else if (type === "quarter") { c.beginPath(); c.moveTo(-S / 2, S / 2); c.arc(-S / 2, S / 2, S, -1.5708, 0); c.closePath(); c.fill(); }
+    else if (type === "square") { c.fillRect(-S / 2, -S / 2, S, S); }
+    else if (type === "bar") { pill(c, -S / 2, -S * 0.13, S, S * 0.26); }
+    else if (type === "arc") { lw = S * 0.14; c.lineWidth = lw; c.beginPath(); c.arc(0, 0, S / 2 - lw / 2, 0, 3.6); c.stroke(); }
+    else if (type === "plus") { pill(c, -S / 2, -S * 0.12, S, S * 0.24); c.save(); c.rotate(1.5708); pill(c, -S / 2, -S * 0.12, S, S * 0.24); c.restore(); }
+    else if (type === "dots") { for (i = -1; i <= 1; i++) for (j = -1; j <= 1; j++) { c.beginPath(); c.arc(i * S * 0.33, j * S * 0.33, S * 0.08, 0, 6.2832); c.fill(); } }
+    else { for (i = 0; i < 4; i++) pill(c, -S / 2, (i - 1.5) * S * 0.24 - S * 0.045, S, S * 0.09); }
+  }
+
+  var UNKNOWN = [236, 239, 243];
+  function tint(hex, f) { // f = 0 is an unidentified grey, f = 1 is the shape's own colour
+    if (f >= 0.99) return hex;
+    var v = parseInt(hex.slice(1), 16), c = [v >> 16 & 255, v >> 8 & 255, v & 255];
+    return "rgb(" + Math.round(UNKNOWN[0] + (c[0] - UNKNOWN[0]) * f) + "," + Math.round(UNKNOWN[1] + (c[1] - UNKNOWN[1]) * f) + "," + Math.round(UNKNOWN[2] + (c[2] - UNKNOWN[2]) * f) + ")";
+  }
+
+  function makeField(canvas, cfg) {
+    var ctx = canvas.getContext("2d"), W = 300, H = 300, mode = 0, t = 0, visible = true, pointer = null;
+    var seed = cfg.seed, n = cfg.count, shapes = [], pings = [], i;
+    function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+    for (i = 0; i < n; i++) {
+      shapes.push({ type: TYPES[Math.floor(rnd() * TYPES.length)], c: COLORS[Math.floor(rnd() * COLORS.length)], size: 0.07 + Math.pow(rnd(), 2) * 0.31,
+        rx: rnd(), ry: rnd(), rr: rnd(), dir: rnd() < 0.5 ? -1 : 1, ph: rnd() * 6.283, x: 0, y: 0, rot: 0, sc: 1, vx: 0, vy: 0, wait: 0, k: 0, known: false, id: 0, pop: 0 });
+    }
+    // biggest first: they are drawn underneath and anchor each composition
+    var bySize = shapes.slice().sort(function (a, b) { return b.size - a.size; });
+    bySize.forEach(function (s, k) { s.k = k; s.known = !!cfg.revealed || k < 5; s.id = s.known ? 1 : 0; });
+    function report() {
+      if (!cfg.onCount) return;
+      var c = 0; for (var q = 0; q < n; q++) if (shapes[q].known) c++;
+      cfg.onCount(c, n);
+    }
+
+    function region() { return cfg.region ? cfg.region(W, H) : { x: 0, y: 0, w: W, h: H }; }
+
+    // where a shape belongs in the current composition: [x, y, rotation, scale]
+    function target(s, R, base) {
+      var name = cfg.layouts[mode], cx = R.x + R.w / 2, cy = R.y + R.h / 2, u = n > 1 ? s.k / (n - 1) : 0, a, rad;
+      if (name === "graph") { // three hubs, each with its own contacts
+        var c = s.k % 3, j = Math.floor(s.k / 3), hx = R.x + R.w * [0.27, 0.73, 0.45][c], hy = R.y + R.h * [0.3, 0.42, 0.76][c];
+        if (j === 0) return [hx, hy, t * 0.05 * s.dir, 0.8];
+        a = j * 2.4 + c * 2 + t * 0.04; rad = base * (0.1 + 0.012 * j);
+        return [hx + Math.cos(a) * rad, hy + Math.sin(a) * rad, a, 0.36];
+      }
+      if (name === "perimeter") { // one asset in the middle, everything else standing guard around it
+        if (s.k === 0) return [cx, cy, t * 0.05, 0.9];
+        a = (s.k - 1) / (n - 1) * 6.2832 + t * 0.08;
+        return [cx + Math.cos(a) * base * 0.38, cy + Math.sin(a) * base * 0.38, a + 1.5708, 0.5];
+      }
+      if (name === "sweep") { // three rings, like range bands on a scope
+        var ring = s.k < 6 ? 0 : s.k < 15 ? 1 : 2, cnt = [6, 9, n - 15][ring], idx = s.k - [0, 6, 15][ring];
+        a = idx / cnt * 6.2832 + t * 0.07 * (ring % 2 ? -1 : 1); rad = base * (0.15 + 0.12 * ring);
+        return [cx + Math.cos(a) * rad, cy + Math.sin(a) * rad, a, 0.42];
+      }
+      if (name === "line") return [R.x + R.w * (0.1 + 0.8 * u), R.y + R.h * (0.88 - 0.76 * u), -0.6, 0.6];
+      if (name === "row") return [R.x + R.w * (0.06 + 0.88 * u), cy, 0, 0.95];
+      if (name === "wave") { a = u * 7 - t * 1.2; return [R.x + R.w * (0.06 + 0.88 * u), cy + Math.sin(a) * R.h * 0.22, Math.sin(a) * 0.8, 0.95]; }
+      return [R.x + (0.08 + s.rx * 0.84) * R.w + Math.sin(t * 0.5 + s.ph) * 8, R.y + (0.08 + s.ry * 0.84) * R.h + Math.cos(t * 0.4 + s.ph) * 8,
+        s.rr * 6.2832 + (t * 0.06 + pageScroll * 0.0015) * s.dir, 1];
+    }
+
+    function update(dt, snap) {
+      var f = Math.min(1, dt * 60), R = region(), base = Math.min(R.w, R.h), damp = Math.pow(0.8, f);
+      if (!snap) {
+        for (var p = pings.length - 1; p >= 0; p--) {
+          var pg = pings[p], found = false; pg.r += dt * 480;
+          for (var m = 0; m < n; m++) {
+            var sm = shapes[m];
+            if (!sm.known && Math.sqrt((sm.x - pg.x) * (sm.x - pg.x) + (sm.y - pg.y) * (sm.y - pg.y)) <= pg.r) { sm.known = true; sm.pop = 0.4; found = true; }
+          }
+          if (found) report();
+          if (pg.r > pg.max) pings.splice(p, 1);
+        }
+      }
+      for (var q = 0; q < n; q++) {
+        var s = shapes[q], g = target(s, R, base);
+        s.id += ((s.known ? 1 : 0) - s.id) * (snap ? 1 : 0.1 * f); s.pop *= Math.pow(0.9, f);
+        if (snap) { s.x = g[0]; s.y = g[1]; s.rot = g[2]; s.sc = g[3]; s.vx = s.vy = 0; continue; }
+        if (s.wait > 0) { s.wait -= dt; continue; }
+        s.vx += (g[0] - s.x) * 0.04 * f; s.vy += (g[1] - s.y) * 0.04 * f;
+        if (pointer) {
+          var dx = s.x - pointer.x, dy = s.y - pointer.y, d2 = dx * dx + dy * dy;
+          if (d2 < 19600 && d2 > 0.01) { var d = Math.sqrt(d2), push = (140 - d) / 140 * 2.6 * f; s.vx += dx / d * push; s.vy += dy / d * push; }
+        }
+        s.vx *= damp; s.vy *= damp;
+        s.x += s.vx * f; s.y += s.vy * f;
+        s.rot += (g[2] - s.rot) * 0.07 * f; s.sc += (g[3] - s.sc) * 0.08 * f;
+      }
+    }
+
+    function draw() {
+      var R = region(), base = Math.min(R.w, R.h);
+      ctx.clearRect(0, 0, W, H);
+      // links between identified shapes that sit close together
+      var th = base * 0.24, a, b, sa, sb, d;
+      ctx.lineWidth = 1.2; ctx.strokeStyle = "#7A8BA8";
+      for (a = 1; a < n; a++) {
+        sa = shapes[a]; if (sa.id < 0.5) continue;
+        for (b = 0; b < a; b++) {
+          sb = shapes[b]; if (sb.id < 0.5) continue;
+          d = Math.sqrt((sa.x - sb.x) * (sa.x - sb.x) + (sa.y - sb.y) * (sa.y - sb.y));
+          if (d < th) { ctx.globalAlpha = (1 - d / th) * 0.55 * Math.min(sa.id, sb.id); ctx.beginPath(); ctx.moveTo(sa.x, sa.y); ctx.lineTo(sb.x, sb.y); ctx.stroke(); }
+        }
+      }
+      // the scan rings
+      ctx.strokeStyle = "#FF9C85";
+      for (a = 0; a < pings.length; a++) {
+        var k = pings[a].r / pings[a].max;
+        ctx.globalAlpha = Math.max(0, 1 - k); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(pings[a].x, pings[a].y, pings[a].r, 0, 6.2832); ctx.stroke();
+        if (pings[a].r > 36) { ctx.globalAlpha = Math.max(0, 0.4 - k * 0.4); ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(pings[a].x, pings[a].y, pings[a].r - 36, 0, 6.2832); ctx.stroke(); }
+      }
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = "multiply";
+      for (var q = 0; q < n; q++) {
+        var s = bySize[q];
+        ctx.save(); ctx.translate(s.x, s.y); ctx.rotate(s.rot);
+        drawShape(ctx, s.type, Math.max(6, s.size * base * s.sc * (1 + s.pop)), tint(s.c, s.id));
+        ctx.restore();
+      }
+      ctx.globalCompositeOperation = "source-over";
+    }
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2), r = canvas.getBoundingClientRect();
+      W = Math.max(200, r.width); H = Math.max(120, r.height);
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      update(0, true); draw();
+    }
+
+    function next() {
+      mode = (mode + 1) % cfg.layouts.length;
+      if (reduced) { update(0, true); draw(); return; }
+      for (var q = 0; q < n; q++) shapes[q].wait = shapes[q].k / n * 0.4; // biggest shapes lead, the rest follow
+    }
+    canvas.addEventListener("click", function (e) {
+      var r = canvas.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top, R = region(), reach = Math.min(R.w, R.h) * 0.55;
+      if (reduced) {
+        shapes.forEach(function (s) { if (Math.sqrt((s.x - px) * (s.x - px) + (s.y - py) * (s.y - py)) <= reach) s.known = true; });
+        report(); update(0, true); draw(); return;
+      }
+      pings.push({ x: px, y: py, r: 0, max: reach });
+    });
+    canvas.addEventListener("pointermove", function (e) { var r = canvas.getBoundingClientRect(); pointer = { x: e.clientX - r.left, y: e.clientY - r.top }; });
+    canvas.addEventListener("pointerleave", function () { pointer = null; });
+    canvas.addEventListener("pointercancel", function () { pointer = null; });
+    canvas.addEventListener("pointerup", function (e) { if (e.pointerType !== "mouse") pointer = null; });
+
+    if (!cfg.onCount) canvas.addEventListener("click", next);
+
+    resize();
+    if (window.ResizeObserver) { new ResizeObserver(resize).observe(canvas); } else { window.addEventListener("resize", resize); }
+    if (window.IntersectionObserver) { new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(canvas); }
+    var last = 0;
+    function frame(now) {
+      requestAnimationFrame(frame);
+      var dt = Math.min(0.05, (now - last) / 1000 || 0); last = now;
+      if (!visible || document.hidden || reduced) return;
+      t += dt; update(dt, false); draw();
+    }
+    requestAnimationFrame(frame);
+    return { next: next };
+  }
+
+  var hero = makeField($("field"), {
+    seed: 11, count: 26, layouts: ["scatter", "graph", "perimeter", "sweep", "line"],
+    onCount: function (c, n) { $("scan-count").textContent = c >= n ? "All " + n + " found" : "Tap to scan · " + c + " of " + n + " found"; },
+    // on wide screens the shapes keep to the right so the headline stays clear
+    region: function (W, H) { return W >= 980 ? { x: W * 0.46, y: 0, w: W * 0.54, h: H } : { x: 0, y: 0, w: W, h: H }; }
+  });
+  $("play-next").addEventListener("click", hero.next);
+  makeField($("strip"), { seed: 29, count: 14, revealed: true, layouts: ["row", "wave", "scatter"] });
+
+
+  /* ================= The short film ================= */
+  (function () {
+    var cv = $("film-c"), c = cv.getContext("2d"), LEN = 14.4, tt = 0, playing = !reduced, vis = false, sc = 1, ptr = null, hopAt = -9, clock = 0;
+    var INK = "#101828", GY = 360, FX = 250, FY = 118, FW = 220, FH = 232, SX = 590, SY = 172, SW = 160, SH = 110, PS = 0.44;
+    var PILEX = 70, PILESTAND = 134, STANDX = 222, T0 = 0.8, CY = 1.0, WARP = 8.0, LANDED = 10.0;
+    // the six parts of the page, positioned inside the frame
+    var PCS = [
+      { x: 14, y: 14, w: 192, h: 14, col: "#D4C5F9", kind: "rect" },
+      { x: 14, y: 38, w: 192, h: 70, col: "#A9C5FF", kind: "rect" },
+      { x: 136, y: 49, w: 48, h: 48, col: "#FFB5A3", kind: "disc" },
+      { x: 14, y: 120, w: 192, h: 36, col: "#D5DBE5", kind: "lines" },
+      { x: 14, y: 166, w: 84, h: 22, col: "#FFE08A", kind: "pill" },
+      { x: 14, y: 198, w: 192, h: 24, col: "#B6E3D0", kind: "cards" }
+    ];
+    var BUILT = T0 + PCS.length * CY;
+
+    function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+    function ease(p) { return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; }
+    function lerp(a, b, p) { return a + (b - a) * p; }
+    function rrect(g, x, y, w, h, r) {
+      g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r);
+      g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath();
+    }
+    // draws one part with its top-left corner at 0,0
+    function piece(g, p) {
+      g.fillStyle = p.col;
+      if (p.kind === "disc") { g.beginPath(); g.arc(p.w / 2, p.h / 2, p.w / 2, 0, 6.2832); g.fill(); }
+      else if (p.kind === "lines") { rrect(g, 0, 0, 150, 8, 4); g.fill(); rrect(g, 0, 14, p.w, 8, 4); g.fill(); rrect(g, 0, 28, 110, 8, 4); g.fill(); }
+      else if (p.kind === "pill") { rrect(g, 0, 0, p.w, p.h, p.h / 2); g.fill(); }
+      else if (p.kind === "cards") { rrect(g, 0, 0, 90, p.h, 5); g.fill(); g.fillStyle = "#D4C5F9"; rrect(g, 102, 0, 90, p.h, 5); g.fill(); }
+      else { rrect(g, 0, 0, p.w, p.h, 5); g.fill(); }
+    }
+    function pieceAt(p, cx, cy, s, rot) {
+      c.save(); c.translate(cx, cy); c.rotate(rot); c.scale(s, s); c.translate(-p.w / 2, -p.h / 2); piece(c, p); c.restore();
+    }
+    // the finished page, kept as a picture so it can be sliced up when the screen takes it
+    var off = document.createElement("canvas"), OD = 2;
+    off.width = FW * OD; off.height = FH * OD;
+    (function () {
+      var g = off.getContext("2d"); g.scale(OD, OD);
+      PCS.forEach(function (p) { g.save(); g.translate(p.x, p.y); piece(g, p); g.restore(); });
+    })();
+
+    function creature(x, y, dir, phase, armsUp, wave, s, wide) {
+      var bob = Math.abs(Math.sin(phase)) * 3, sw = Math.sin(phase) * 8;
+      var lean = ptr ? Math.max(-1, Math.min(1, (ptr.x - x) / 60)) * 6 : 0; // the antenna tips toward the pointer
+      c.save(); c.translate(x, y); c.scale(s, s); c.lineCap = "round"; c.strokeStyle = INK; c.lineWidth = 3;
+      c.beginPath(); c.moveTo(-6, -22 - bob); c.lineTo(-6 + sw, 0); c.moveTo(6, -22 - bob); c.lineTo(6 - sw, 0); c.stroke();
+      c.translate(0, -bob);
+      c.beginPath();
+      if (armsUp) { c.moveTo(-13, -48); c.lineTo(-17, -76); c.moveTo(13, -48); c.lineTo(17, -76); }
+      else {
+        c.moveTo(-13, -46); c.lineTo(-20 - sw * 0.4, -30); c.moveTo(13, -46);
+        if (wave) c.lineTo(27, -62 + Math.sin(wave) * 7); else c.lineTo(20 + sw * 0.4, -30);
+      }
+      c.stroke();
+      c.fillStyle = "#D4C5F9"; rrect(c, -15, -60, 30, 40, 14); c.fill();
+      c.fillStyle = "#FFB5A3"; c.beginPath(); c.arc(4 * dir, -72, 14, 0, 6.2832); c.fill();
+      c.lineWidth = 2; c.beginPath(); c.moveTo(4 * dir, -85); c.lineTo(dir + lean, -96); c.stroke();
+      c.fillStyle = "#B6E3D0"; c.beginPath(); c.arc(dir + lean, -99, 4, 0, 6.2832); c.fill();
+      c.fillStyle = "#FFFFFF"; c.beginPath(); c.arc(8 * dir, -73, wide ? 7.5 : 6, 0, 6.2832); c.fill();
+      var px = 10 * dir, py = -73;
+      if (ptr) { // the eye follows the pointer
+        var ax = ptr.x - (x + 8 * dir * s), ay = ptr.y - (y - 73 * s), al = Math.sqrt(ax * ax + ay * ay) || 1;
+        px = 8 * dir + ax / al * 3.2; py = -73 + ay / al * 3.2;
+      }
+      c.fillStyle = INK; c.beginPath(); c.arc(px, py, 2.6, 0, 6.2832); c.fill();
+      c.restore();
+    }
+
+    function scene(t) {
+      var i, p, q, local;
+      c.clearRect(0, 0, 800, 440);
+      c.globalAlpha = Math.max(0, Math.min(1, t / 0.3, (LEN - t) / 0.4));
+      c.lineCap = "round";
+      // ground
+      c.strokeStyle = "#C9D1DE"; c.lineWidth = 2; c.beginPath(); c.moveTo(24, GY); c.lineTo(776, GY); c.stroke();
+      // the frame the page is built in, on two short legs
+      c.strokeStyle = INK; c.lineWidth = 3;
+      c.beginPath(); c.moveTo(FX + 30, FY + FH); c.lineTo(FX + 22, GY); c.moveTo(FX + FW - 30, FY + FH); c.lineTo(FX + FW - 22, GY); c.stroke();
+      c.fillStyle = "#FFFFFF"; rrect(c, FX, FY, FW, FH, 12); c.fill(); c.stroke();
+      // the monitor
+      var by = t > LANDED && t < LANDED + 0.5 ? Math.sin((t - LANDED) / 0.5 * 3.1416) * -8 : 0;
+      var awake = t >= 7.5 && t < WARP ? Math.floor((t - 7.5) * 8) % 2 === 0 : t >= WARP;
+      if (ptr && ptr.x > SX - 10 && ptr.x < SX + SW + 10 && ptr.y > SY - 10 && ptr.y < SY + SH + 10) awake = true; // pointing at the monitor wakes it
+      c.fillStyle = INK; rrect(c, SX + SW / 2 - 34, GY - 8, 68, 8, 4); c.fill();
+      c.fillRect(SX + SW / 2 - 5, SY + SH + 10 + by, 10, GY - 8 - (SY + SH + 10 + by));
+      c.fillStyle = awake ? "#E4ECFF" : "#F5F6FA"; rrect(c, SX - 10, SY - 10 + by, SW + 20, SH + 20, 12); c.fill(); c.stroke();
+
+      // parts: waiting in the pile, being carried, in the air, or in place
+      var cx = STANDX, dir = 1, phase = 0, armsUp = false, pileY = GY - 2;
+      for (i = PCS.length - 1; i >= 0; i--) {
+        p = PCS[i]; local = t - (T0 + i * CY);
+        if (local < 0.35) { pieceAt(p, PILEX, pileY - p.h * 0.45 / 2, 0.45, 0); pileY -= p.h * 0.45 + 3; }
+      }
+      for (i = 0; i < PCS.length; i++) {
+        p = PCS[i]; local = t - (T0 + i * CY);
+        if (local < 0 || local >= CY) continue;
+        if (local < 0.35) { q = ease(local / 0.35); cx = lerp(i === 0 ? -30 : STANDX, PILESTAND, q); dir = -1; phase = t * 14; }
+        else if (local < 0.7) { q = ease((local - 0.35) / 0.35); cx = lerp(PILESTAND, STANDX, q); dir = 1; phase = t * 14; armsUp = true; pieceAt(p, cx, GY - 96, 0.45, 0); }
+        else {
+          q = (local - 0.7) / 0.3; armsUp = true;
+          pieceAt(p, lerp(STANDX, FX + p.x + p.w / 2, ease(q)), lerp(GY - 96, FY + p.y + p.h / 2, ease(q)) - Math.sin(q * 3.1416) * 40, lerp(0.45, 1, q), (1 - q) * 0.5);
+        }
+      }
+      if (t < WARP) {
+        for (i = 0; i < PCS.length; i++) { p = PCS[i]; if (t >= T0 + (i + 1) * CY) { c.save(); c.translate(FX + p.x, FY + p.y); piece(c, p); c.restore(); } }
+      } else if (t < LANDED) {
+        // the screen takes the page: it leaves in strips, top first, stretching and wobbling on the way over
+        var mx = SX + (SW - FW * PS) / 2, my = SY + (SH - FH * PS) / 2, strips = 29, sh = FH / strips;
+        for (i = 0; i < strips; i++) {
+          var pr = clamp((t - WARP - i * 0.036) / 0.9), e = ease(pr), arc = Math.sin(pr * 3.1416);
+          var w = FW * lerp(1, PS, e) * (1 + arc * 0.9), hh = sh * lerp(1, PS, e) + 0.6;
+          var x = lerp(FX, mx, e) + Math.sin(pr * 9.42 + i * 0.5) * 14 * arc - (w - FW * lerp(1, PS, e)) / 2;
+          var y = lerp(FY + i * sh, my + i * sh * PS, e) - arc * 60;
+          c.drawImage(off, 0, i * sh * OD, FW * OD, sh * OD, x, y, w, hh);
+        }
+      } else {
+        c.drawImage(off, 0, 0, off.width, off.height, SX + (SW - FW * PS) / 2, SY + (SH - FH * PS) / 2 + by, FW * PS, FH * PS);
+        if (Math.floor(t * 2) % 2 === 0) { c.fillStyle = "#7FCFA8"; c.beginPath(); c.arc(SX + 4, SY + 4 + by, 4, 0, 6.2832); c.fill(); }
+      }
+
+      // the builder
+      var cy = GY, s = 1, wave = 0, wide = false;
+      if (t < T0) { cx = -30; }
+      else if (t >= BUILT && t < 7.5) { cy = GY - Math.abs(Math.sin((t - BUILT) / 0.7 * 6.2832)) * 14; armsUp = true; }
+      else if (t >= 7.5 && t < 10.6) {
+        wide = true;
+        if (t >= WARP && t < 8.9) { c.fillStyle = INK; c.font = "700 26px 'Bricolage Grotesque', sans-serif"; c.fillText("!", cx + 14, GY - 104); }
+      }
+      else if (t >= 10.6 && t < 11.6) { cx = lerp(STANDX, 540, ease(t - 10.6)); phase = t * 14; }
+      else if (t >= 11.6 && t < 12.4) { q = (t - 11.6) / 0.8; cx = lerp(540, SX + SW - 26, q); cy = lerp(GY, SY + SH - 5, q) - Math.sin(q * 3.1416) * 70; s = lerp(1, 0.36, q); armsUp = true; }
+      else if (t >= 12.4) { cx = SX + SW - 26; cy = SY + SH - 5; s = 0.36; dir = -1; wave = t * 8; }
+      if (ptr && phase === 0) {
+        dir = ptr.x > cx ? 1 : -1; // when it isn't busy walking, it turns to face the pointer
+        if (!armsUp && Math.abs(ptr.x - cx) < 120 && Math.abs(ptr.y - (cy - 50 * s)) < 120) wave = clock * 10; // and waves if you come close
+      }
+      var hp = (clock - hopAt) / 0.45;
+      if (hp >= 0 && hp < 1) { cy -= Math.sin(hp * 3.1416) * 18 * s; wide = true; } // a click makes it jump
+      creature(cx, cy, dir, phase, armsUp, wave, s, wide);
+      c.globalAlpha = 1;
+    }
+
+    function paint() { c.setTransform(sc, 0, 0, sc, 0, 0); scene(tt); }
+    function fit() {
+      var r = cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.width * 0.55 * dpr);
+      sc = r.width / 800 * dpr; paint();
+    }
+    var playBtn = $("film-play");
+    function setPlaying(v) { playing = v; playBtn.textContent = v ? "Pause" : "Play"; }
+    playBtn.addEventListener("click", function () { setPlaying(!playing); });
+    $("film-replay").addEventListener("click", function () { tt = 0; setPlaying(true); });
+    cv._seek = function (v) { tt = v; setPlaying(false); paint(); };
+    function toScene(e) { var r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) / r.width * 800, y: (e.clientY - r.top) / r.width * 800 }; }
+    var clearTimer = 0;
+    cv.addEventListener("pointermove", function (e) { ptr = toScene(e); });
+    cv.addEventListener("pointerdown", function (e) { ptr = toScene(e); hopAt = clock; clearTimeout(clearTimer); });
+    cv.addEventListener("pointerup", function (e) { if (e.pointerType !== "mouse") clearTimer = setTimeout(function () { ptr = null; paint(); }, 2500); });
+    cv.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") { ptr = null; paint(); } });
+
+    if (reduced) { tt = 7.2; setPlaying(false); }
+    fit();
+    if (window.ResizeObserver) { new ResizeObserver(fit).observe(cv); } else { window.addEventListener("resize", fit); }
+    if (window.IntersectionObserver) { new IntersectionObserver(function (es) { vis = es[0].isIntersecting; }, { threshold: 0.2 }).observe(cv); } else { vis = true; }
+    var prev = 0;
+    function loop(now) {
+      requestAnimationFrame(loop);
+      var dt = Math.min(0.05, (now - prev) / 1000 || 0); prev = now;
+      if (!vis || document.hidden) return;
+      clock += dt;
+      if (playing) { tt += dt; if (tt >= LEN) tt = 0; }
+      if (playing || ptr || clock - hopAt < 0.5) paint(); // keeps reacting to the pointer while paused
+    }
+    requestAnimationFrame(loop);
+  })();
+
+  /* ================= Work list ================= */
+  var THUMBS = /*THUMBS*/{};
+  var WORK = [
+    { s: "Live", c: "sys", n: "PettitOps Payroll System", t: ["Payroll system", "Business operations", "Reporting"], u: "https://pettitops.com/", i: "pettitops", d: "A modern payroll and business operations system built for Australian businesses. Brings payroll, invoicing, reporting, and day-to-day operational workflows into one purpose-built platform designed around how the business actually works." },
+    { s: "Active", c: "sys", n: "Fleet Logics", t: ["Fleet operations", "Internal systems", "200+ vehicles"], u: "https://fleetlogics.app", i: "fleetlogics", d: "A fleet and operations management system built for a 200+ vehicle national logistics contract. Covers real-time utilisation tracking, subcontractor margin analysis, and KPI reporting across multiple depots. Built to replace manual spreadsheet processes that could not scale to the operational volume or compliance obligations involved." },
+    { s: "Live", c: "web", n: "Suliman Legal Services", t: ["Web design", "Legal services", "Lead generation"], u: "https://sulimanlegal.com.au/", i: "sulimanlegal", d: "A refined, trust-led website for a Parramatta legal practice serving clients across New South Wales. The site presents Family, Immigration, Property and Conveyancing, and Wills and Estates services through clear navigation, considered messaging, and a direct enquiry path." },
+    { s: "Live", c: "web", n: "All Australian Energy", t: ["Web design", "Solar & battery", "Lead generation"], u: "https://allaustralianenergy.com.au/", i: "allaustralianenergy", d: "A conversion-focused website for a NSW solar and battery installer. The site combines clear product positioning, local trust signals, and an above-the-fold assessment form to turn homeowners researching lower energy costs into qualified enquiries." },
+    { s: "Live", c: "web", n: "Shoalhaven Yards & Gardens", t: ["Web design", "Local service business", "Lead generation"], u: "https://shoalhavenyardsandgardens.com", i: "shoalhaven", d: "A warm, trust-led website for a female-owned gardening and property maintenance business serving Culburra Beach and the greater Shoalhaven region. Full-bleed hero photography, clear service breakdown, and a frictionless quote request flow built to convert local homeowners." },
+    { s: "Live", c: "sys", n: "Sydney Funeral Compare", t: ["Web platform", "Marketplace", "End to end"], u: "https://sydneyfuneralcompare.com", i: "sydneyfuneralcompare", d: "A lead-generation marketplace platform built end to end: market research, pricing data architecture, partner commission logic, legal terms, and go-to-market. Operational from day one of launch without external development or agency involvement. Built to address a genuine information gap in a market where consumers have limited ability to compare providers." },
+    { s: "Live", c: "web", n: "Yunn Tattoo Studio", t: ["Web design", "Bilingual", "Booking flow"], u: "https://yunntattoo.com", i: "yunntattoo", d: "A modern bilingual (English/Vietnamese) website for a boutique tattoo studio in Ho Chi Minh City. Covers portfolio gallery, services, reviews, and an online booking flow. Clean editorial aesthetic with strong visual hierarchy suited to a design-led creative business." },
+    { s: "Live", c: "web", n: "Commercial Floorcoverings Australia", t: ["Web design", "Trade & commercial", "Lead generation"], u: "https://cfansw.com.au", i: "cfansw", d: "A conversion-focused website for a commercial and residential flooring company. Full-screen hero with interior photography, a product gallery, and a frictionless quote booking flow built for trade clients. Mobile-first and optimised for fast page-speed scores." },
+    { s: "Built", c: "sys", n: "OCPP Protocol Emulator", t: ["Protocol engineering", "EV infrastructure", "Hardware testing"], d: "A charge-point protocol emulator built to the OCPP 1.6J specification for an EV infrastructure startup. Allows hardware integrations to be tested against a simulated charge point network before physical deployment, removing a bottleneck in the hardware validation process and reducing reliance on live infrastructure during development." },
+    { s: "Built", c: "sys", n: "Booking and operations system", t: ["Workflow automation", "Scheduling", "Small business"], d: "A scheduling, job tracking, and workflow automation system built for a small business client managing recurring field service bookings. Replaced a manual booking process with an end-to-end system covering client intake, job dispatch, status tracking, and completion records. Delivered to a non-technical operator with no ongoing support overhead." },
+    { s: "NDA", c: "sys", n: "Consumer marketplace: conceived, built, and launched", t: ["Marketplace", "Full stack", "Commercial launch"], d: "End-to-end build of a live consumer marketplace: search architecture, pricing data integration, partner commission logic, legal terms, and commercial outreach. Operational from day one of launch with no external development support. Details under NDA." },
+    { s: "Concept", c: "sys", n: "Field service job management app", t: ["Product design", "Mobile UX", "Field service"], d: "A self-directed product design exercise: a mobile app concept that lets a plumber, electrician, or landscaper run their entire day from one screen, covering job dispatch, customer SMS notifications, on-site invoicing, and scheduling. Includes live job status tracking, a client directory, and calendar view, with the interface adapting to different trade business types." }
+  ];
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  var ledger = $("ledger");
+  WORK.forEach(function (w) {
+    var d = el("details", "job"); d.setAttribute("data-c", w.c);
+    var sum = el("summary");
+    sum.appendChild(el("span", "job-name", w.n));
+    sum.appendChild(el("span", "job-tags", w.t.join(" · ")));
+    sum.appendChild(el("span", "plus"));
+    d.appendChild(sum);
+    var body = el("div", "job-body");
+    if (w.i && THUMBS[w.i]) {
+      body.className = "job-body has-img";
+      var img = el("img"); img.alt = w.n + " website preview"; img.width = 560; img.height = 315;
+      d.addEventListener("toggle", function () { if (d.open && !img.src) img.src = THUMBS[w.i]; });
+      body.appendChild(img);
+    }
+    var txt = el("div");
+    var st = el("span", "status" + (w.s === "Live" || w.s === "Active" ? " on" : w.s === "Built" ? " built" : ""));
+    st.appendChild(el("i")); st.appendChild(document.createTextNode(w.s === "NDA" ? "Under NDA" : w.s));
+    txt.appendChild(st);
+    txt.appendChild(el("p", null, w.d));
+    if (w.u) { var a = el("a", "visit", "Visit site →"); a.href = w.u; a.rel = "noopener"; txt.appendChild(a); }
+    body.appendChild(txt);
+    d.appendChild(body);
+    ledger.appendChild(d);
+  });
+  var chips = Array.prototype.slice.call(document.querySelectorAll(".chipbtn"));
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () {
+      var f = c.getAttribute("data-f");
+      chips.forEach(function (o) { o.setAttribute("aria-pressed", o === c ? "true" : "false"); });
+      Array.prototype.forEach.call(ledger.children, function (row) { row.hidden = !(f === "all" || row.getAttribute("data-c") === f); });
+    });
+  });
+
+  /* ================= Contact ================= */
+  Array.prototype.forEach.call(document.querySelectorAll(".copy"), function (b) {
+    b.addEventListener("click", function () {
+      var target = $(b.getAttribute("data-copy")), text = target.textContent;
+      function selectIt() {
+        var r = document.createRange(); r.selectNodeContents(target);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        b.textContent = "Selected";
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { b.textContent = "Copied"; }, selectIt);
+      } else { selectIt(); }
+      setTimeout(function () { b.textContent = "Copy"; }, 2000);
+    });
+  });
+
+  var form = $("msg-form"), statusEl = $("cf-status"), sendBtn = $("cf-send");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = $("cf-name").value.trim(), email = $("cf-email").value.trim(), message = $("cf-message").value.trim();
+    statusEl.className = "form-status";
+    if (!name || !message || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      statusEl.className = "form-status err";
+      statusEl.textContent = "Add your name, a valid email, and a message.";
+      return;
+    }
+    sendBtn.disabled = true; sendBtn.textContent = "Sending";
+    fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: name, email: email, message: message }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok && j.success, err: j.error }; }); })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.err || "");
+        statusEl.className = "form-status ok"; statusEl.textContent = "Message sent. I'll be in touch.";
+        form.reset();
+      })
+      .catch(function () {
+        statusEl.className = "form-status err";
+        statusEl.textContent = "That didn't send. Email pettitcameron@gmail.com or call +61 452 017 693 instead.";
+      })
+      .then(function () { sendBtn.disabled = false; sendBtn.textContent = "Send message"; });
+  });
+})();
+</script>
