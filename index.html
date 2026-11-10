@@ -121,6 +121,65 @@ button { font: inherit; color: inherit; }
 .svc-item h4 { font-family: var(--body); font-weight: 600; font-size: 1.05rem; letter-spacing: 0; }
 .svc-item p { color: #465060; font-size: .98rem; }
 
+/* Animated scenes at the top of each service card. The resting styles are the finished picture, so nothing is hidden without motion. */
+.svc { perspective: 1200px; }
+.svc-col { transition: transform .25s ease, box-shadow .25s ease; will-change: transform; }
+.svc-col:hover { box-shadow: 0 18px 40px rgba(16, 24, 40, .08); }
+.svc.ready .svc-col:not(.seen) { transform: translateY(26px) rotate(-1.2deg); }
+.svc.ready .svc-col { transition: transform .7s cubic-bezier(.2, 1.2, .4, 1), box-shadow .25s ease; }
+.svc.ready .svc-col:nth-child(2) { transition-delay: .08s; }
+.svc.ready .svc-col:nth-child(3) { transition-delay: .16s; }
+.svc.ready .svc-col:nth-child(4) { transition-delay: .24s; }
+.svc.ready .svc-col.tilting { transition: transform .12s ease-out, box-shadow .25s ease; transition-delay: 0s; }
+.svc-art { position: relative; height: 130px; }
+.svc-art i { position: absolute; display: block; }
+.svc-col:not(.live) .svc-art i { animation-play-state: paused; }
+
+/* Build: the parts of a page drop into place, hold, then clear away */
+.art-build i { animation: drop 5.6s cubic-bezier(.3, 1.3, .5, 1) infinite backwards; }
+.art-build i:nth-child(1) { left: 0; top: 8px; width: 100%; height: 12px; border-radius: 6px; background: #FFFFFF; }
+.art-build i:nth-child(2) { left: 0; top: 30px; width: 62%; height: 62px; border-radius: 10px; background: #A9C5FF; animation-delay: .18s; }
+.art-build i:nth-child(3) { left: 67%; top: 30px; width: 33%; height: 28px; border-radius: 10px; background: #D4C5F9; animation-delay: .36s; }
+.art-build i:nth-child(4) { left: 67%; top: 64px; width: 33%; height: 28px; border-radius: 10px; background: #FFFFFF; animation-delay: .54s; }
+.art-build i:nth-child(5) { left: 0; top: 102px; width: 34%; height: 18px; border-radius: 9px; background: #FFB5A3; animation-delay: .72s; }
+@keyframes drop {
+  0% { transform: translateY(-170px) rotate(-8deg); opacity: 0; }
+  8% { opacity: 1; }
+  14%, 82% { transform: none; opacity: 1; }
+  94%, 100% { transform: translateY(60px) rotate(6deg); opacity: 0; }
+}
+
+/* Systemise: work moves along a line from step to step, and each step ticks as it passes */
+.art-flow .ln { left: 8%; right: 8%; top: 64px; height: 2px; background: rgba(16, 24, 40, .16); }
+.art-flow .nd { top: 48px; width: 34px; height: 34px; margin-left: -17px; border-radius: 50%; background: #FFFFFF; animation: tick 1.2s ease-out infinite; }
+.art-flow .nd:nth-child(2) { left: 8%; }
+.art-flow .nd:nth-child(3) { left: 50%; animation-delay: .6s; }
+.art-flow .nd:nth-child(4) { left: 92%; }
+.art-flow .dt { left: 50%; top: 58px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: #A9C5FF; animation: travel 3.6s linear infinite; }
+.art-flow .dt:nth-child(6) { animation-delay: -1.2s; background: #FFB5A3; }
+.art-flow .dt:nth-child(7) { animation-delay: -2.4s; background: #B6E3D0; }
+@keyframes travel { 0% { left: 8%; opacity: 0; } 8%, 92% { opacity: 1; } 100% { left: 92%; opacity: 0; } }
+@keyframes tick { 0%, 30%, 100% { transform: scale(1); } 10% { transform: scale(1.25); } }
+
+/* Secure: two guard rings turn around a core while a scan pulse goes out */
+.art-guard i { left: 50%; top: 65px; border-radius: 50%; }
+.art-guard .co { width: 26px; height: 26px; margin: -13px 0 0 -13px; background: #FFFFFF; }
+.art-guard .r1 { width: 66px; height: 66px; margin: -33px 0 0 -33px; border: 7px solid #C3B0F4; border-top-color: transparent; animation: turn 6s linear infinite; }
+.art-guard .r2 { width: 108px; height: 108px; margin: -54px 0 0 -54px; border: 4px solid #FFFFFF; border-right-color: transparent; border-bottom-color: transparent; animation: turn 9s linear infinite reverse; }
+.art-guard .pl { width: 30px; height: 30px; margin: -15px 0 0 -15px; border: 2px solid #FFB5A3; opacity: 0; animation: ping 2.6s ease-out infinite; }
+@keyframes turn { to { transform: rotate(360deg); } }
+@keyframes ping { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(4.4); opacity: 0; } }
+
+/* Measure: bars rise and fall at their own pace */
+.art-bars i { bottom: 6px; width: 11%; height: 112px; border-radius: 7px 7px 3px 3px; background: #B6E3D0; transform-origin: 50% 100%; transform: scaleY(var(--a)); animation: bar var(--d) ease-in-out infinite; }
+.art-bars i:nth-child(1) { left: 0; --a: .3; --b: .55; --d: 3.1s; }
+.art-bars i:nth-child(2) { left: 17.8%; --a: .62; --b: .34; --d: 2.6s; background: #FFFFFF; }
+.art-bars i:nth-child(3) { left: 35.6%; --a: .45; --b: .8; --d: 3.4s; }
+.art-bars i:nth-child(4) { left: 53.4%; --a: .7; --b: .5; --d: 2.9s; background: #FFE08A; }
+.art-bars i:nth-child(5) { left: 71.2%; --a: .58; --b: .95; --d: 3.7s; }
+.art-bars i:nth-child(6) { left: 89%; --a: 1; --b: .72; --d: 2.4s; background: #FFFFFF; }
+@keyframes bar { 0%, 100% { transform: scaleY(var(--a)); } 50% { transform: scaleY(var(--b)); } }
+
 /* Work */
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
 .chipbtn { font-size: .92rem; font-weight: 500; padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg); cursor: pointer; }
@@ -183,6 +242,9 @@ footer a { text-underline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .btn, .plus::before, .plus::after, .job-name { transition: none; }
+  .svc-art i { animation: none !important; }
+  .art-guard .pl { opacity: .6; transform: scale(2.6); }
+  .svc.ready .svc-col, .svc.ready .svc-col:not(.seen) { transition: none; transform: none; }
 }
 </style>
 
@@ -260,6 +322,7 @@ footer a { text-underline-offset: 4px; }
       </div>
       <div class="svc">
         <div class="svc-col">
+          <div class="svc-art art-build" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
           <h3>Build</h3>
           <div class="svc-item">
             <h4>Web design &amp; development</h4>
@@ -271,6 +334,7 @@ footer a { text-underline-offset: 4px; }
           </div>
         </div>
         <div class="svc-col">
+          <div class="svc-art art-flow" aria-hidden="true"><i class="ln"></i><i class="nd"></i><i class="nd"></i><i class="nd"></i><i class="dt"></i><i class="dt"></i><i class="dt"></i></div>
           <h3>Systemise</h3>
           <div class="svc-item">
             <h4>Business systems &amp; automation</h4>
@@ -282,6 +346,7 @@ footer a { text-underline-offset: 4px; }
           </div>
         </div>
         <div class="svc-col">
+          <div class="svc-art art-guard" aria-hidden="true"><i class="pl"></i><i class="r2"></i><i class="r1"></i><i class="co"></i></div>
           <h3>Secure</h3>
           <div class="svc-item">
             <h4>Cybersecurity</h4>
@@ -293,6 +358,7 @@ footer a { text-underline-offset: 4px; }
           </div>
         </div>
         <div class="svc-col">
+          <div class="svc-art art-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
           <h3>Measure</h3>
           <div class="svc-item">
             <h4>Operations reporting &amp; analytics</h4>
@@ -863,6 +929,31 @@ footer a { text-underline-offset: 4px; }
     }
     step(0); draw();
     requestAnimationFrame(loop);
+  })();
+
+  /* ================= Service cards ================= */
+  (function () {
+    var grid = document.querySelector(".svc"), cards = Array.prototype.slice.call(document.querySelectorAll(".svc-col"));
+    if (!window.IntersectionObserver) { cards.forEach(function (c) { c.classList.add("live"); }); return; }
+    grid.classList.add("ready"); // cards now slide up into place the first time they are seen
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        e.target.classList.toggle("live", e.isIntersecting); // scenes only run while on screen
+        if (e.isIntersecting) e.target.classList.add("seen");
+      });
+    }, { threshold: 0.15 });
+    cards.forEach(function (c) {
+      io.observe(c);
+      if (reduced) return;
+      // with a mouse, a card leans toward the pointer
+      c.addEventListener("pointermove", function (e) {
+        if (e.pointerType !== "mouse") return;
+        var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        c.classList.add("tilting");
+        c.style.transform = "translateY(-6px) rotateX(" + (-y * 7).toFixed(2) + "deg) rotateY(" + (x * 7).toFixed(2) + "deg)";
+      });
+      c.addEventListener("pointerleave", function () { c.classList.remove("tilting"); c.style.transform = ""; });
+    });
   })();
 
   /* ================= Work list ================= */
