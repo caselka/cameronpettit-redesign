@@ -6,6 +6,7 @@ This is a standalone prototype. It has not been merged into the live site, which
 ## What's in the page
 - **Hero shape network**: pastel shapes joined by link lines. A tap sends out a scan ring that "finds" grey shapes; the Rearrange button cycles compositions (noise, link graph, perimeter, range rings, timeline).
 - **Short film**: a 14-second looping canvas animation of a small builder assembling a web page by hand before a monitor pulls it in. The builder's eye follows the pointer, it waves when the pointer is close, and it jumps on click.
+- **Page mascot**: a second small creature that perches on the header, falls off when the page scrolls, gets thrown around by further scrolling, chases the pointer and trips over, flies off when clicked, and jumps back to its perch at the top of the page.
 - **Services**: Build, Systemise, Secure, Measure.
 - **Work list**: 12 projects that expand, with a Websites / Systems filter.
 - **Contact**: details with copy buttons and a message form that posts JSON to `/api/contact` (the live site's existing endpoint).
